@@ -1,0 +1,89 @@
+package MazeCreation;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.Path2D;
+
+public class MazeDisplay extends JPanel {
+    Maze m1;
+    int offsetX = 10;
+    int offsetY = 10;
+    int cellSize = 20;
+
+    int moveCounter = 0;
+    int xPoint, yPoint, xOld, yOld;
+    boolean erase;
+
+    public MazeDisplay() {
+        m1 = new Maze();
+        xPoint = offsetX + cellSize / 2;
+        yPoint = offsetY + cellSize / 2;
+        xOld = xPoint;
+        yOld = yPoint;
+    }
+
+    public MazeDisplay(Maze m2)
+    {
+        m1 = m2;
+        xPoint = offsetX + cellSize / 2;
+        yPoint = offsetY + cellSize / 2;
+        xOld = xPoint;
+        yOld = yPoint;
+    }
+    MazeDisplay(Maze m2, int cellSize2)
+    {
+        m1 = m2;
+        cellSize = cellSize2;
+        xPoint = offsetX + cellSize / 2;
+        yPoint = offsetY + cellSize / 2;
+        xOld = xPoint;
+        yOld = yPoint;
+    }
+    private void Drawing(Graphics g)
+    {
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(Color.green);
+        Dimension size = getSize();
+        Insets insets = getInsets();
+        int w = size.width - insets.left - insets.right;
+        int h = size.height - insets.top - insets.bottom;
+        g2d.setBackground(Color.black);
+        g2d.clearRect(0,0,w,h);
+        Path2D mazeShape = new Path2D.Double();
+
+        int x,y;
+        for (int i = 0;i<m1.xSize;i++)
+        {
+            x = i*cellSize+offsetX;
+            for(int j = 0;j<m1.ySize;j++)
+            {
+                y = j*cellSize+offsetY;
+
+                if(m1.cells[i][j].walls[0] == 1)
+                {
+                    mazeShape.moveTo(x,y);
+                    mazeShape.lineTo(x+cellSize,y);
+                    g2d.drawLine(x,y,x+cellSize,y);
+                }
+                if (m1.cells[i][i].walls[1] == 1)
+                {
+                    mazeShape.moveTo(x+cellSize,y);
+                    mazeShape.lineTo(x+cellSize,y+cellSize);
+                    g2d.drawLine(x+cellSize,y,x+cellSize,y+cellSize);
+                }
+                if (m1.cells[i][i].walls[2] == 1)
+                {
+                    mazeShape.moveTo(x,y+cellSize);
+                    mazeShape.lineTo(x+cellSize,y+cellSize);
+                    g2d.drawLine(x,y+cellSize,x+cellSize,y+cellSize);
+                }
+                if (m1.cells[i][i].walls[3] == 1)
+                {
+                    mazeShape.moveTo(x,y);
+                    mazeShape.lineTo(x,y+cellSize);
+                    g2d.drawLine(x,y,x,y+cellSize);
+                }
+            }
+        }
+    }
+}
