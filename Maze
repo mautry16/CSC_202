@@ -1,0 +1,99 @@
+package MazeCreation;
+
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Stack;
+
+public class Maze
+{
+    int xSize;
+    int ySize;
+    Cell[][] cells;
+
+    public Maze()
+    {
+        xSize = 25;
+        ySize = 25;
+        cells = new Cell[xSize][ySize];
+        initiateCells();
+        generateMaze();
+    }
+    public Maze(int x, int y)
+    {
+        xSize = x;
+        ySize = y;
+        cells = new Cell[xSize][ySize];
+        initiateCells();
+        generateMaze();
+    }
+    public void PrintAllCells()
+    {
+        for(int i = 0;i < xSize;i++)
+        {
+            for(int j = 0;j<ySize;j++)
+            {
+                System.out.println( i + " " + j);
+                cells[i][j].printCell();
+                System.out.println("/n");
+            }
+        }
+    }
+    public void initateCells()
+    {
+        for(int i = 0;i < xSize;i++)
+        {
+            for(int j = 0;j<ySize;j++)
+            {
+                cells[i][j] = new Cell();
+                cells[i][j].x = i;
+                cells[i][j].y = j;
+                if(i == 0)
+                {
+                    cells[i][j].borders[0] = 1;
+                }
+                if(j == 0)
+                {
+                    cells[i][j].borders[3] = 1;
+                }
+                if(i == xSize-1)
+                {
+                    cells[i][j].borders[2] = 1;
+                }
+                if(j == ySize-1)
+                {
+                    cells[i][j].borders[1] = 1;
+                }
+            }
+        }
+    }
+    public generateMaze()
+    {
+        Random random = new Random();
+        int x = random.nextInt(xSize);
+        int y = random.nextInt(ySize);
+
+        Stack<Cell> cellStack = new Stack <Cell>;
+        int totalCells = xSize*ySize;
+        int visitedCells = 1;
+        Cell currectCell = cells[x][y];
+
+        ArrayList<Vertex> neighborCellList = new ArrayList<Vertex>();
+        Vertex tempV = new Vertex();
+
+        while (visitedCells < totalCells)
+        {
+            neighborCellList.clear();
+            tempV = new Vertex();
+            if(y-1 >=0 && cells[x][y-1].checkWalls() == true)
+            {
+                tempV.x1 = x;
+                tempV.y1 = y;
+                tempV.x2 = x;
+                tempV.y2 = y-1;
+                tempV.wall1 = 0;
+                tempV.wall2 = 2;
+                neighborCellList.add(tempV);
+            }
+        }
+    }
+}
