@@ -1,0 +1,41 @@
+package MazeCreation;
+
+import javax.swing.*;
+
+public class MazeGenerator extends JFrame{
+
+    int xSize = 15;
+    int ySize = 15;
+    int cellSize = 20;
+    Maze m1 = new Maze(xSize, ySize);
+
+    public MazeGenerator()
+    {
+        initUI();
+    }
+    public static void main(String[] args)
+    {
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            @Overridepublic void run()
+            {
+                MazeGenerator mz = new MazeGenerator();
+                mz.setVisible(true);
+            }
+        });
+    }
+    private initUI()
+    {
+        setTitle("Maze");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(xSize = cellSize + 200, ySize = cellSize + 75);
+
+        MazeDisplay md = new MazeDisplay(m1, cellSize);
+        add(md);
+        addKeyListener(md);
+        setContentPane(md);
+        md.setFocusable(true);
+        setLocationRelativeTo(null);
+    }
+
+}
