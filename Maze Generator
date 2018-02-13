@@ -17,7 +17,8 @@ public class MazeGenerator extends JFrame{
     {
         SwingUtilities.invokeLater(new Runnable()
         {
-            @Overridepublic void run()
+            @Override
+            public void run()
             {
                 MazeGenerator mz = new MazeGenerator();
                 mz.setVisible(true);
